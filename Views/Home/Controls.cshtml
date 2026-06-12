@@ -1,0 +1,74 @@
+@{
+    ViewData["Title"] = "Dynamic Controls";
+}
+
+<div class="container py-4">
+    <h1 class="h3 mb-4">Dynamic Controls</h1>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <label class="form-label" for="controlType">Select Control</label>
+            <select class="form-select" id="controlType">
+                <option value="textbox">Textbox</option>
+                <option value="checkbox">Checkbox</option>
+                <option value="button">Button</option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label class="form-label" for="controlCount">Number of control to generate</label>
+            <input class="form-control" id="controlCount" type="number" min="1" value="1" />
+        </div>
+        <div class="col-md-4 d-flex align-items-end">
+            <button class="btn btn-primary w-100" type="button" id="generateButton">Generate</button>
+        </div>
+    </div>
+
+    <div id="generatedControls" class="d-grid gap-2"></div>
+</div>
+
+<script>
+    (function () {
+        const controlType = document.getElementById('controlType');
+        const controlCount = document.getElementById('controlCount');
+        const generatedControls = document.getElementById('generatedControls');
+        const generateButton = document.getElementById('generateButton');
+
+        function generateControls() {
+            const count = Math.max(1, parseInt(controlCount.value, 10) || 0);
+            generatedControls.innerHTML = '';
+
+            for (let index = 1; index <= count; index++) {
+                const wrapper = document.createElement('div');
+
+                if (controlType.value === 'textbox') {
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.className = 'form-control';
+                    input.placeholder = 'Textbox ' + index;
+                    wrapper.appendChild(input);
+                } else if (controlType.value === 'checkbox') {
+                    const label = document.createElement('label');
+                    label.className = 'form-check-label';
+                    const input = document.createElement('input');
+                    input.type = 'checkbox';
+                    input.className = 'form-check-input me-2';
+                    label.appendChild(input);
+                    label.appendChild(document.createTextNode('Checkbox ' + index));
+                    wrapper.className = 'form-check';
+                    wrapper.appendChild(label);
+                } else {
+                    const button = document.createElement('button');
+                    button.type = 'button';
+                    button.className = 'btn btn-outline-secondary';
+                    button.textContent = 'Button ' + index;
+                    wrapper.appendChild(button);
+                }
+
+                generatedControls.appendChild(wrapper);
+            }
+        }
+
+        generateButton.addEventListener('click', generateControls);
+        generateControls();
+    })();
+</script>

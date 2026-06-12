@@ -1,0 +1,30 @@
+﻿@model IEnumerable<EmployeeBiodata>
+@{
+    ViewData["Title"] = "Employee Biodata";
+}
+
+<div class="container py-4">
+    <h1 class="h3 mb-4">Employee Biodata</h1>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Employee No</th>
+                    <th>Employee Name</th>
+                    <th>Birth Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var employee in Model)
+                {
+                    <tr>
+                        <td>@employee.EmployeeNo</td>
+                        <td>@employee.EmployeeName</td>
+                        <td>@employee.BirthDate.ToString("dd/MMM/yyyy")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
